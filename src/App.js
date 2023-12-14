@@ -23,7 +23,9 @@ function App() {
     const [balance, setBalance] = useState(0);
 
     const connect = async () => {
+        console.log('connect')
         const accounts = await window.conflux.request({ method: 'cfx_accounts' })
+        console.log('connect2', accounts);
             // .then(handleAccountsChanged)
             // .catch((err) => {
             //     console.error(err);
@@ -95,7 +97,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <br />
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <h5> CFXs Core Mint Tool</h5>
         <br />
         {
             !window.conflux && <a
