@@ -24,12 +24,15 @@ function App() {
 
     const connect = async () => {
         console.log('connect')
-        const accounts = await window.conflux.request({ method: 'cfx_accounts' })
+        let accounts = await window.conflux.request({ method: 'cfx_accounts' })
         console.log('connect2', accounts);
             // .then(handleAccountsChanged)
             // .catch((err) => {
             //     console.error(err);
             // });
+        if (accounts.length === 0) {
+            accounts = await window.conflux.request({ method: 'cfx_requestAccounts' })
+        }
 
         if (accounts.length > 0) {
             const account = accounts[0];
@@ -38,7 +41,9 @@ function App() {
 
             const balance = await cfxscontract.balanceOf(address.cfxMappedEVMSpaceAddress(account));
             setBalance(balance);
-        }
+        } else {
+            message.error('Fluent connect failed');
+        } 
     };
 
     const mintCfxs = async () => {
